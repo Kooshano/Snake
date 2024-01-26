@@ -162,7 +162,7 @@ void update_matrix(){
             leds[i*16+j] = CRGB::Black;
         }
         else if(matrix[i][j] == 1){
-            leds[i*16+j] = CRGB::Green;
+            leds[i*16+j] = CRGB::Yellow;
         }
         else if(matrix[i][j] == 2){
             leds[i*16+j] = CRGB::Red;
