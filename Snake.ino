@@ -66,25 +66,36 @@ void loop() {
         game_over = true;
     }
     if (game_over == false){
-        for(short i = snake_length-1; i > 0; i--){
-            snake_x[i] = snake_x[i-1];
-            snake_y[i] = snake_y[i-1];
-        }
-        if(direction == 0){
+        //move last block to the front
+        if (direction == 0){
+            for(short i = snake_length-1; i > 0; i--){
+                snake_x[i] = snake_x[i-1];
+                snake_y[i] = snake_y[i-1];
+            }
             snake_y[0]++;
         }
-        else if(direction == 2){
-            snake_y[0]--;
-        }
-        else if(direction == 3){
+        else if (direction == 1){
+            for(short i = snake_length-1; i > 0; i--){
+                snake_x[i] = snake_x[i-1];
+                snake_y[i] = snake_y[i-1];
+            }
             snake_x[0]++;
         }
-        else if(direction == 1){
+        else if (direction == 2){
+            for(short i = snake_length-1; i > 0; i--){
+                snake_x[i] = snake_x[i-1];
+                snake_y[i] = snake_y[i-1];
+            }
+            snake_y[0]--;
+        }
+        else if (direction == 3){
+            for(short i = snake_length-1; i > 0; i--){
+                snake_x[i] = snake_x[i-1];
+                snake_y[i] = snake_y[i-1];
+            }
             snake_x[0]--;
         }
-        if(snake_x[0] == food_x && snake_y[0] == food_y){
-            eat_food = true;
-        }
+        
         for(short i = 0; i < 16; i++){
             for(short j = 0; j < 16; j++){
                 matrix[i][j] = 0;
