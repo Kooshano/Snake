@@ -72,7 +72,7 @@ void loop() {
                 snake_x[i] = snake_x[i-1];
                 snake_y[i] = snake_y[i-1];
             }
-            snake_y[0]++;
+            snake_y[0]--;
         }
         else if (direction == 1){
             for(short i = snake_length-1; i > 0; i--){
@@ -86,7 +86,7 @@ void loop() {
                 snake_x[i] = snake_x[i-1];
                 snake_y[i] = snake_y[i-1];
             }
-            snake_y[0]--;
+            snake_y[0]++;
         }
         else if (direction == 3){
             for(short i = snake_length-1; i > 0; i--){
