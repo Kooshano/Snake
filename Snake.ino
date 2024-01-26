@@ -3,6 +3,7 @@
 #define NUM_LEDS 256
 #define DATA_PIN 6
 #define brightness 250
+#define tick 1000
 byte matrix[16][16];
 CRGB leds[NUM_LEDS];
 //0 for being off 1 for snake 2 for food
@@ -35,7 +36,9 @@ bool check_game_over(){
     }
     return false;
 }
+
 void setup() {
+    //create a Thread for getting input from the arrow keys
     Serial.begin(9600);
     // put your setup code here, to run once:
     FastLED.addLeds<WS2811, DATA_PIN, GRB>(leds, NUM_LEDS).setCorrection(TypicalSMD5050);
@@ -57,6 +60,36 @@ void setup() {
 }
 
 void loop() {
+    // put your main code here, to run repeatedly:
+    if (Serial.available() > 0){
+        char input = Serial.read();
+        if (input == 'w'){
+            if (direction != 2){
+                direction = 0;
+            }
+        }
+        else if (input == 'd'){
+            if (direction != 3){
+                direction = 1;
+            }
+        }
+        else if (input == 's'){
+            if (direction != 0){
+                direction = 2;
+            }
+        }
+        else if (input == 'a'){
+            if (direction != 1){
+                direction = 3;
+            }
+        }
+    }
+    //update game in the period of tick
+    if(millis() % tick == 0){
+        update_game();
+    }
+}
+void update_game(){
     if (eat_food == true){
         snake_length++;
         eat_food = false;
@@ -115,9 +148,7 @@ void loop() {
             }
         }
         update_matrix();
-        delay(1000);
     }
-
 }
 void update_matrix(){
     for(short i = 0; i < 16; i++){
