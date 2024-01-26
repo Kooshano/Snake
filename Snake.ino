@@ -8,6 +8,7 @@
 #define RIGHT_PIN 3
 #define brightness 250
 #define tick 500
+int next_x, next_y;
 byte matrix[16][16];
 CRGB leds[NUM_LEDS];
 //0 for being off 1 for snake 2 for food
@@ -32,18 +33,53 @@ void spawn_food(){
     }
 }
 bool check_game_over(){
-    if(snake_x[0] < 0 || snake_x[0] > 15 || snake_y[0] < 0 || snake_y[0] > 15){
+    if (snake_length == 256){
+        return true;
+    } 
+    if(direction == 0){
+        next_x = snake_x[0];
+        next_y = snake_y[0]-1;
+    }
+    else if(direction == 1){
+        next_x = snake_x[0]+1;
+        next_y = snake_y[0];
+    }
+    else if(direction == 2){
+        next_x = snake_x[0];
+        next_y = snake_y[0]+1;
+    }
+    else if(direction == 3){
+        next_x = snake_x[0]-1;
+        next_y = snake_y[0];
+    }
+    if(next_x[0] < 0 || next_x[0] > 15 || next_y[0] < 0 || next_y[0] > 15){
         return true;
     }
     for(short i = 1; i < snake_length; i++){
-        if(snake_x[0] == snake_x[i] && snake_y[0] == snake_y[i]){
+        if(next_x == snake_y[i] && next_y == snake_y[i]){
             return true;
         }
     }
     return false;
 }
 bool hit_food(){
-  return (snake_x[0] == food_x && snake_y[0] == food_y);
+    if(direction == 0){
+        next_x = snake_x[0];
+        next_y = snake_y[0]-1;
+    }
+    else if(direction == 1){
+        next_x = snake_x[0]+1;
+        next_y = snake_y[0];
+    }
+    else if(direction == 2){
+        next_x = snake_x[0];
+        next_y = snake_y[0]+1;
+    }
+    else if(direction == 3){
+        next_x = snake_x[0]-1;
+        next_y = snake_y[0];
+    }
+  return (next_x == food_x && next_y == food_y);
 }
 void setup() {
     //make the pins for the arrow keys input
@@ -162,7 +198,7 @@ void update_matrix(){
             leds[i*16+j] = CRGB::Black;
         }
         else if(matrix[i][j] == 1){
-            leds[i*16+j] = CRGB::Green;
+            leds[i*16+j] = CRGB::Yellow;
         }
         else if(matrix[i][j] == 2){
             leds[i*16+j] = CRGB::Red;
