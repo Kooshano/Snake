@@ -7,9 +7,9 @@ int matrix[16][16];
 CRGB leds[NUM_LEDS];
 //0 for being off 1 for snake 2 for food
 int snake_length = 3;
-string direction[256] = [];
-int snake_x[256] = [];
-int snake_y[256] = [];
+int direction[256] = {};
+int snake_x[256] = {};
+int snake_y[256] = {};
 int food_x;
 int food_y;
 void setup() {
