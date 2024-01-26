@@ -2,6 +2,10 @@
 #include <FastLED.h>
 #define NUM_LEDS 256
 #define DATA_PIN 6
+#define UP_PIN 2
+#define DOWN_PIN 4
+#define LEFT_PIN 5
+#define RIGHT_PIN 3
 #define brightness 250
 #define tick 1000
 byte matrix[16][16];
@@ -38,6 +42,11 @@ bool check_game_over(){
 }
 
 void setup() {
+    //make the pins for the arrow keys input
+    pinMode(UP_PIN, INPUT);
+    pinMode(DOWN_PIN, INPUT);
+    pinMode(LEFT_PIN, INPUT);
+    pinMode(RIGHT_PIN, INPUT);
     //create a Thread for getting input from the arrow keys
     Serial.begin(9600);
     // put your setup code here, to run once:
@@ -60,31 +69,19 @@ void setup() {
 }
 
 void loop() {
-    // put your main code here, to run repeatedly:
-    if (Serial.available() > 0){
-        char input = Serial.read();
-        if (input == 'w'){
-            if (direction != 2){
-                direction = 0;
-            }
-        }
-        else if (input == 'd'){
-            if (direction != 3){
-                direction = 1;
-            }
-        }
-        else if (input == 's'){
-            if (direction != 0){
-                direction = 2;
-            }
-        }
-        else if (input == 'a'){
-            if (direction != 1){
-                direction = 3;
-            }
-        }
+    // change direction of snake based on input
+    if(digitalRead(UP_PIN) == HIGH && direction != 2){
+        direction = 0;
     }
-    //update game in the period of tick
+    else if(digitalRead(RIGHT_PIN) == HIGH && direction != 3){
+        direction = 1;
+    }
+    else if(digitalRead(DOWN_PIN) == HIGH && direction != 0){
+        direction = 2;
+    }
+    else if(digitalRead(LEFT_PIN) == HIGH && direction != 1){
+        direction = 3;
+    }
     if(millis() % tick == 0){
         update_game();
     }
