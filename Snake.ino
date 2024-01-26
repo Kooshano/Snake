@@ -20,20 +20,19 @@ void setup() {
     FastLED.clear();
     for(int i = 0; i < 16; i++){
         for(int j = 0; j < 16; j++){
-            matrix[i][j] = 2;
+            matrix[i][j] = 0;
         }
     }
+    for(int i = 0; i < snake_length; i++){
+        snake_x[i] = 8;
+        snake_y[i] = 8+i;
+        matrix[snake_x[i]][snake_y[i]] = 1;
+        direction[i] = "up";
+    }
+    food_x = 8;
+    food_y = 8;
+    matrix[food_x][food_y] = 2;
     update_matrix();
-    // for(int i = 0; i < snake_length; i++){
-    //     snake_x[i] = 8;
-    //     snake_y[i] = 8+i;
-    //     matrix[snake_x[i]][snake_y[i]] = 1;
-    //     direction[i] = "up";
-    // }
-    // food_x = 8;
-    // food_y = 8;
-    // matrix[food_x][food_y] = 2;
-    // update_matrix();
 }
 
 void loop() {
