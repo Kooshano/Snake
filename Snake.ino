@@ -29,8 +29,8 @@ void setup() {
         matrix[snake_x[i]][snake_y[i]] = 1;
         direction[i] = "up";
     }
-    food_x = 8;
-    food_y = 8;
+    food_x = 3;
+    food_y = 3;
     matrix[food_x][food_y] = 2;
     update_matrix();
 }
