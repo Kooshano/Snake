@@ -112,6 +112,8 @@ void setup() {
     update_matrix();
 }
 
+void (*resetFunc)(void) = 0;
+
 void loop() {
     // change direction of snake based on input
     if(digitalRead(UP_PIN) == LOW && direction != 2){
@@ -139,6 +141,7 @@ void update_game(){
     }
     if (check_game_over() == true){
         game_over = true;
+        resetFunc();
     }
     if (game_over == false){
         //move last block to the front
