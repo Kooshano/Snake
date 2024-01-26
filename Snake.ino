@@ -52,11 +52,11 @@ bool check_game_over(){
         next_x = snake_x[0]-1;
         next_y = snake_y[0];
     }
-    if(next_x[0] < 0 || next_x[0] > 15 || next_y[0] < 0 || next_y[0] > 15){
+    if(next_x < 0 || next_x > 15 || next_y < 0 || next_y > 15){
         return true;
     }
     for(short i = 1; i < snake_length; i++){
-        if(next_x == snake_y[i] && next_y == snake_y[i]){
+        if(next_x == snake_x[i] && next_y == snake_y[i]){
             return true;
         }
     }
